@@ -7,15 +7,16 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Set;
 
-public class ConsumerGrp02 {
+public class ConsumerGrp01_B {
     public static void main(String[] args){
 
         // Create the Properties class to instantiate the Consumer with the desired settings:
         Properties props = new Properties();
-        props.put("bootstrap.servers", "localhost:9092");
+        //props.put("bootstrap.servers", "localhost:9092");
+        props.put("bootstrap.servers", "34.234.35.134:9092");
         props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-        props.put("group.id", "test");
+        props.put("group.id", "group1");
         // Create a KafkaConsumer instance and configure it with properties.
         KafkaConsumer<String, String> myConsumer = new KafkaConsumer<String, String>(props);
 
@@ -27,7 +28,7 @@ public class ConsumerGrp02 {
 
         // Start polling for messages:
         int messageProcessed =0;
-        System.out.println("Listeninng message from topic=my_topic ...");
+        System.out.println("Listening message from topic=my_topic ...");
         try {
             while (true){
                 ConsumerRecords<String,String> records = myConsumer.poll(10);

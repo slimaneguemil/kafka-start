@@ -13,6 +13,7 @@ public class ProducerApp {
         // Create the Properties class to instantiate the Consumer with the desired settings:
         Properties props = new Properties();
         props.put("bootstrap.servers", "localhost:9092");
+        //props.put("bootstrap.servers", "34.234.35.134:9092");
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 
@@ -21,7 +22,7 @@ public class ProducerApp {
         DateFormat dtFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss:SSS");
         String topic = "my_topic";
 
-        int numberOfRecords = 10; // number of records to send
+        int numberOfRecords = 200; // number of records to send
         long sleepTimer = 1000; // how long you want to wait before the next record to be sent
 
         try {
@@ -35,9 +36,10 @@ public class ProducerApp {
                                     dtFormat.format(new Date())
                                     )
                             );
-                }
                     Thread.sleep(sleepTimer);
                     // Thread.sleep(new Random(5000).nextLong()); // use if you want to randomize the time between record sends
+                }
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
