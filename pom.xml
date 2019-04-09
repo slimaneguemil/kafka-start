@@ -6,9 +6,11 @@
 
     <groupId>groupId</groupId>
     <artifactId>kafka-start</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
     <modules>
         <module>consumer</module>
+        <module>kafka-connector</module>
     </modules>
 </project>

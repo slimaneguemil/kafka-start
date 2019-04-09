@@ -1,3 +1,4 @@
+import domain.User;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Set;
 
-public class ConsumerGrp02_A {
+public class ConsumerGrp01_User {
     public static void main(String[] args){
 
         // Create the Properties class to instantiate the Consumer with the desired settings:
@@ -15,15 +16,14 @@ public class ConsumerGrp02_A {
         props.put("bootstrap.servers", "localhost:9092");
         //props.put("bootstrap.servers", "34.234.35.134:9092");
         props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-        props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-        props.put("group.id", "group_id2");
+        props.put("value.deserializer", "domain.UserDeserializer");
+        props.put("group.id", "group1");
         // Create a KafkaConsumer instance and configure it with properties.
-        KafkaConsumer<String, String> myConsumer = new KafkaConsumer<String, String>(props);
+        KafkaConsumer<String, User> myConsumer = new KafkaConsumer<String, User>(props);
 
         // Create a topic subscription list:
         ArrayList<String> topics = new ArrayList<String>();
-        //topics.add("my_topic");
-        topics.add("users");
+        topics.add("my_topic");
         myConsumer.subscribe(topics);
 
 
@@ -32,18 +32,20 @@ public class ConsumerGrp02_A {
         System.out.println("Listening message from topic=my_topic ...");
         try {
             while (true){
-                ConsumerRecords<String,String> records = myConsumer.poll(10);
+                ConsumerRecords<String,User> records = myConsumer.poll(10);
                 //printRecords(records);
-                for (ConsumerRecord<String,String> record: records){
+                for (ConsumerRecord<String,User> record: records){
 
                       //  sleep(6000);
 
                     messageProcessed++;
-                    System.out.println(String.format(
-                            "Topic %s, Partition: %d, Offset: %d, Key: %s, Value: %s ",
-                            record.topic(), record.partition(), record.offset(), record.key(), record.value()
-                            )
-                    );
+//                    System.out.println(String.format(
+//                            "Topic %s, Partition: %d, Offset: %d, Key: %s, Value: %s ",
+//                            record.topic(), record.partition(), record.offset(), record.key(), record.value()
+//                            )
+//                    );
+
+                    System.out.println("Message received " + record.value().toString());
                 }
                 //System.out.println(String.format("total message processed %d",messageProcessed));
 
